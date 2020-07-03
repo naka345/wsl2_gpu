@@ -6,12 +6,13 @@
 * windows: 20150.1000 以降
 * docker: 19.03 以降
 * WSL2: 4.19.121 以降
+* CUDA: 11.0
 
 windowsはinsider programを ~~fastを選択~~ Dev チャネルを選択に変わりました。
 dockerはスクリプト通りにすると最新が入るはず
 WSLはwindowsの`「更新とセキュリティ」->「詳細オプション」->「windows
 の更新時に〜」のチェックをオンに`する必要がある。
-その後にコマンドプロンプトで `wsl --update`を実行 
+その後にコマンドプロンプトで `wsl --update`を実行
 
 ## 留意点
 [nvidiaのフォーラム](https://forums.developer.nvidia.com/t/hiccups-setting-up-wsl2-cuda/128641)で言われているように、
@@ -22,6 +23,11 @@ WSLはwindowsの`「更新とセキュリティ」->「詳細オプション」-
 そのため、環境に未練が無いなら新しいdistroを作り直した方が早い。
 
 ## 使い方
+### 前提条件
+windows側でCUDAのインストールを済ませておく。
+今回使用するバージョンは11.0
+
+### 各種スクリプト
 * セットアップ
 fishとssh-agentを併せて使いたいためのスクリプト。
 以降のスクリプトが`~/.config/fish/config.fish`に書き込むため、初めに実行する必要あり。
@@ -32,8 +38,9 @@ bash setup.sh
 ```
 
 * docker のインストール
-本来ならdocker再起動だけでgroupが追加されるはずだが、うまくいかないため
+本来ならdocker再起動だけでgroupが追加されるはずだが、WSLだとうまくいかないため
 一旦シャットダウンする。
+
 ```
 bash docker_on_ubuntu.sh
 ```
