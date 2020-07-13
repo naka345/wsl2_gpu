@@ -27,8 +27,7 @@ if sudo mkdir /sys/fs/cgroup/systemd; then
 fi
 
 sudo service docker start
-echo "sudo service docker restart" >> .config/fish/config.fish
-sudo service docker restart
+echo "sudo service docker start" >> .config/fish/config.fish
 docker run hello-world
 
 # wslの場合、sudo無しでdockerを使うにはrebootが必須？

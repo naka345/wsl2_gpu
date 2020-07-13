@@ -13,7 +13,7 @@ fish -c "omf install https://github.com/jethrokuan/fzf"
 fish -c "omf install sushi"
 
 # WSL shutdown command
-echo "alias wslreboot='cmd.exe /C wsl --shutdown'" > ~/.bashrc
+echo "alias wslreboot='cmd.exe /C wsl --shutdown'" > ~/.config/fish/config.fish
 
 # set up keyagent
 ssh-keygen -t rsa -b 4096 -C "naka345@gmail.com"
