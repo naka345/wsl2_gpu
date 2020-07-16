@@ -1,7 +1,3 @@
-# uninstall cuda and nvidia lib
-sudo apt-get --purge remove -y nvidia-*
-sudo apt-get --purge remove -y cuda-*
-
 # install cuda (onry cuda-toolkit)
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
 sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600

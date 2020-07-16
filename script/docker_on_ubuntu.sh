@@ -32,5 +32,5 @@ docker run hello-world
 
 # wslの場合、sudo無しでdockerを使うにはrebootが必須？
 if test $? -eq 126; then
-	wslreboot
+	cmd.exe /C wsl --shutdown
 fi
