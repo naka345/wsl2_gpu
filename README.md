@@ -16,46 +16,60 @@ WSLはwindowsの`「更新とセキュリティ」->「詳細オプション」-
 
 ## 留意点
 [nvidiaのフォーラム](https://forums.developer.nvidia.com/t/hiccups-setting-up-wsl2-cuda/128641)で言われているように、
-現段階ではwindowsの`docker desktop`経由だとGPUサポートされていないため`nvidia-container-toolkit`か`nvidia-docker2`経由で使う必要がある。
+現段階ではwindowsの`docker desktop`経由だとGPUサポートされていないため、
+WSL2上では`nvidia-container-toolkit`か`nvidia-docker2`経由で使う必要がある。
 予め`docker desktop WSL 2`を使用している環境だとwin上の `docker desktop` を見に行こうとするため、設定でdisableにする必要がある。
-レビュー版ということもあり、設定が中途半端だとubuntu上のdockerとカチ合って
-グリーンバック画面に直行することもままある。
+レビュー版ということもあり、設定が中途半端だとubuntu上のdockerとカチ合ってグリーンバック画面に直行することもままある。
 そのため、環境に未練が無いなら新しいdistroを作り直した方が早い。
 
 ## 使い方
+基本はbashで動作させる前提
+
 ### 前提条件
-windows側でCUDAのインストールを済ませておく。
-今回使用するバージョンは11.0
+windows側でWSL2カーネルとCUDAのインストールを済ませておく。
+今回使用するCUDAバージョンは11.0
 
 ### 各種スクリプト
 * セットアップ
-fishとssh-agentを併せて使いたいためのスクリプト。
-以降のスクリプトが`~/.config/fish/config.fish`に書き込むため、初めに実行する必要あり。
-また再起動が必要のため一旦シャットダウンする。
 
 ```
 bash setup.sh
 ```
 
+fishとssh-agentを併せて使いたいためのスクリプト。
+以降のスクリプトが`~/.config/fish/config.fish`に書き込むため、初めに実行する必要あり。
+また再起動が必要のため一旦シャットダウンする。
+
 * docker のインストール
-本来ならdocker再起動だけでgroupが追加されるはずだが、WSLだとうまくいかないため
-一旦シャットダウンする。
 
 ```
 bash docker_on_ubuntu.sh
 ```
 
-* cuda & nvidia-docker2 のインストール
-最終行の`docker run`でGPUが認識できていれば完了
+本来ならdocker再起動だけでgroup周りの設定が適用されるはずだが、
+どうにもWSLだとうまくいかないため一旦シャットダウンする。
+
+* cuda toolkit & nvidia-container-toolkit のインストール
 
 ```
-bash nvidia-docker,sh
+bash nvidia-docker.sh
 ```
+
+最終行の`docker run`でGPUが認識できていれば構築完了
 
 * おまけ
-`docker desktop`経由でdockerを使いたい時。
-GPUは使用不可。wsl integlation の項目をチェックした上で`docker desktop`をrefreshする必要あり。
 
 ```
 bash docker_on_wsl.sh
 ```
+
+`docker desktop`経由でdockerを使いたい時。
+linux上のdockerdと共存できないため、nvidia-dockerは使用できない。
+wsl integlation の項目をチェックした上で`docker desktop`をrefreshする必要あり。
+
+```
+bash remove_docker.sh
+```
+
+WSL2上のdockerを入れ直したい場合に、
+docker関連の設定も併せて削除していく。
