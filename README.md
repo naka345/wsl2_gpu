@@ -49,7 +49,7 @@ bash docker_on_ubuntu.sh
 最終行の`docker run`でGPUが認識できていれば完了
 
 ```
-bash nvidia-docker,sh
+bash nvidia-docker.sh
 ```
 
 * おまけ
